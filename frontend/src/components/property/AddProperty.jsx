@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { buildUrl } from "../../utils/api";
 
 export default function AddProperty() {
     const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ export default function AddProperty() {
         setMessage("");
 
         try {
-            const res = await fetch("http://localhost:5000/property", {
+            const res = await fetch(buildUrl("/property"), {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",

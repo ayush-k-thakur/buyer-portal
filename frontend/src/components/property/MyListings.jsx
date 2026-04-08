@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropertyCard from './PropertyCard';
 import { useAuth } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import { buildUrl } from '../../utils/api';
 import PropertySkeleton from '../../utils/PropertySkeleton';
 
 function MyListings() {
@@ -19,7 +20,7 @@ function MyListings() {
         try {
             setLoading(true);
             const res = await fetch(
-                `http://localhost:5000/property/my-listings?page=${page}&limit=${limit}`,
+                buildUrl(`/property/my-listings?page=${page}&limit=${limit}`),
                 { credentials: "include" }
             );
             const json = await res.json();
@@ -45,7 +46,7 @@ function MyListings() {
     const handleDelete = async () => {
         try {
             const res = await fetch(
-                `http://localhost:5000/property/${deleteTarget._id}`,
+                buildUrl(`/property/${deleteTarget._id}`),
                 {
                     method: "DELETE",
                     credentials: "include",
@@ -122,13 +123,13 @@ function MyListings() {
                         <div className="flex justify-around">
                             <button
                                 onClick={handleDelete}
-                                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+                                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition cursor-pointer"
                             >
                                 Delete
                             </button>
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition"
+                                className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition cursor-pointer"
                             >
                                 Cancel
                             </button>

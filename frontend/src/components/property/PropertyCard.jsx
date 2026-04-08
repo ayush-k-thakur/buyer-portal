@@ -29,7 +29,7 @@ export default function PropertyCard({ property, isFav, toggleFavourite, type, h
         {type === "all-properties" && (
           <button
             onClick={() => toggleFavourite(property)}
-            className="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full shadow"
+            className="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full shadow cursor-pointer"
           >
             <Heart
               size={26}
@@ -44,7 +44,7 @@ export default function PropertyCard({ property, isFav, toggleFavourite, type, h
         {type === "seller-listings" && handleDelete && (
           <button
             onClick={() => handleDelete(property)}
-            className="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full shadow"
+            className="absolute top-4 right-4 bg-white/80 backdrop-blur-md p-2 rounded-full shadow cursor-pointer"
           >
             <Trash2
               size={26}

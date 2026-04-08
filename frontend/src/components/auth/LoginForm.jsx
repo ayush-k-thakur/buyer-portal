@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../contexts/AuthContext";
+import { buildUrl } from "../../utils/api";
 import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginForm() {
@@ -28,7 +29,7 @@ export default function LoginForm() {
 
         try {
             // --- Login request ---
-            const res = await fetch("http://localhost:5000/users/login", {
+            const res = await fetch(buildUrl("/users/login"), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

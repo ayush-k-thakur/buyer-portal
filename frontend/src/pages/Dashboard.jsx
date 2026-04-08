@@ -6,6 +6,7 @@ import PropertyCard from "../components/property/PropertyCard"
 import AddProperty from "../components/property/AddProperty"
 import MyListings from "../components/property/MyListings"
 import DashboardSkeleton from "../utils/DashboardSkeleton"
+import { buildUrl } from "../utils/api"
 
 export default function Dashboard() {
   const { user } = useAuth()
@@ -29,7 +30,7 @@ export default function Dashboard() {
       try {
         setLoading(true)
         const res = await fetch(
-          `http://localhost:5000/property?page=${propsPage}&limit=${limit}`,
+          buildUrl(`/property?page=${propsPage}&limit=${limit}`),
           { credentials: "include" }
         )
         const json = await res.json()
@@ -49,7 +50,7 @@ export default function Dashboard() {
     const fetchFavourites = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/property/favourites?page=${favPage}&limit=${limit}`,
+          buildUrl(`/property/favourites?page=${favPage}&limit=${limit}`),
           { credentials: "include" }
         )
         const json = await res.json()
@@ -65,7 +66,7 @@ export default function Dashboard() {
   const toggleFavourite = async property => {
     try {
       await fetch(
-        `http://localhost:5000/property/favourites/${property._id}`,
+        buildUrl(`/property/favourites/${property._id}`),
         { method: "PATCH", credentials: "include" }
       )
       const wasFav = favIds.has(property._id)

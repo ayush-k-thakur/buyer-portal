@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { buildUrl } from "../utils/api";
 
 const AuthContext = createContext();
 
@@ -8,7 +9,7 @@ export function AuthProvider({ children }) {
 
     const fetchMe = async () => {
         try {
-            const res = await fetch("http://localhost:5000/users/me", {
+            const res = await fetch(buildUrl("/users/me"), {
                 credentials: "include", // important for cookie
             });
             if (!res.ok) throw new Error();
@@ -26,7 +27,7 @@ export function AuthProvider({ children }) {
     }, []);
 
     const logout = async () => {
-        await fetch("http://localhost:5000/users/logout", {
+        await fetch(buildUrl("/users/logout"), {
             method: "POST",
             credentials: "include",
         });

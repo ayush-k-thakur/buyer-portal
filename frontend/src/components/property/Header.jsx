@@ -1,8 +1,9 @@
 import { LogOut, Home, Heart, Plus, Logs } from "lucide-react";
+import { buildUrl } from "../../utils/api";
 
 export default function Header({ user, activeTab, setActiveTab }) {
   const signOut = async () => {
-    await fetch("http://localhost:5000/users/logout", {
+    await fetch(buildUrl("/users/logout"), {
       method: "POST",
       credentials: "include",
     }).then(() => {

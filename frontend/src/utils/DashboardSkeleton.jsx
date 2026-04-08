@@ -6,7 +6,7 @@ import TabsSkeleton from './TabsSkeleton'
 function DashboardSkeleton() {
     return (
         <div className='min-h-screen w-full bg-gradient-to-br from-emerald-100 via-gray-300 to-emerald-200'>
-            <div className="space-y-10">
+            <div className="space-y-10 px-10 pt-5">
 
                 {/* Header Skeleton */}
                 <HeaderSkeleton />

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../../contexts/AuthContext";
+import { buildUrl } from "../../utils/api";
 import { Eye, EyeOff } from "lucide-react";
 
-export default function SignupForm({ input }) {
+export default function SignupForm() {
     const { setUser } = useAuth();
 
     const [data, setData] = useState({
@@ -15,6 +16,10 @@ export default function SignupForm({ input }) {
     });
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const input =
+    "w-full bg-white/60 backdrop-blur border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-emerald-500 transition";
+
 
     const handleChange = (e) =>
         setData((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -49,7 +54,7 @@ export default function SignupForm({ input }) {
 
         try {
             // --- Signup request ---
-            const res = await fetch("http://localhost:5000/users/register", {
+            const res = await fetch(buildUrl("/users/register"), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
