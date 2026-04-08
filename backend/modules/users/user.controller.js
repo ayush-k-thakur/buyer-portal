@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const validator = require("validator");
 const generateTokenAndSetCookie = require('../../shared/utils/generateToken')
 
+// Controller for user registration
 exports.register = async (req, res) => {
   try {
     const { name, email, password, confirmPassword, role } = req.body;
@@ -72,6 +73,7 @@ exports.register = async (req, res) => {
   }
 };
 
+// Controller for user login
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -102,6 +104,7 @@ exports.login = async (req, res) => {
   }
 };
 
+// Controller for user logout
 exports.logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
@@ -111,6 +114,7 @@ exports.logout = (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 }
 
+// Controller to get current user info
 exports.getMe = async (req, res) => {
   try {
     const token = req.cookies.token;

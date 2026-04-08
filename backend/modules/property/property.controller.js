@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const User = require("../users/user.model");
 const Property = require("./property.model")
 
+// Get all properties with pagination
 exports.getAllProperties = async (req, res) => {
   try {
     // Read page and limit from query
@@ -34,6 +35,7 @@ exports.getAllProperties = async (req, res) => {
   }
 };
 
+// Get single property by ID
 exports.getPropertyById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -48,6 +50,7 @@ exports.getPropertyById = async (req, res) => {
   }
 };
 
+// Get user's favourite properties with pagination
 exports.getFavourites = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
@@ -100,6 +103,7 @@ exports.getFavourites = async (req, res) => {
   }
 };
 
+// Toggle favourite status of a property for the logged-in user
 exports.toggleFavourite = async (req, res) => {
   try {
     const { propertyId } = req.params;
@@ -131,6 +135,7 @@ exports.toggleFavourite = async (req, res) => {
   }
 };
 
+// Add new property (only for authorized users)
 exports.addProperty = async (req, res) => {
   try {
     const { name, price, location, description } = req.body;
@@ -161,6 +166,7 @@ exports.addProperty = async (req, res) => {
   }
 };
 
+// Delete a property (only by owner or admin)
 exports.deleteProperty = async (req, res) => {
   try {
     const { id } = req.params;
@@ -197,6 +203,7 @@ exports.deleteProperty = async (req, res) => {
   }
 };
 
+// Get properties created by the logged-in user with pagination
 exports.getMyProperties = async (req, res) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
