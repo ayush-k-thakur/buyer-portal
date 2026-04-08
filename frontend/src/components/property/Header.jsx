@@ -1,13 +1,15 @@
 import { LogOut, Home, Heart, Plus, Logs } from "lucide-react";
 import { buildUrl } from "../../utils/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ user, activeTab, setActiveTab }) {
   const signOut = async () => {
+    const navigate = useNavigate();
     await fetch(buildUrl("/users/logout"), {
       method: "POST",
       credentials: "include",
     }).then(() => {
-      window.location.reload();
+      navigate("/auth");
     });
   };
 
