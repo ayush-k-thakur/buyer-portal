@@ -75,7 +75,7 @@ export default function AddProperty() {
                         Price <span className="text-red-500">*</span>
                     </span>
                     <input
-                        type="number"
+                        type="telephone"
                         name="price"
                         placeholder="Price in NRs"
                         value={formData.price}
