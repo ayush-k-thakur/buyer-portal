@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import { useAuth } from './contexts/AuthContext';
 import AuthPage from './pages/AuthPage'
 import Dashboard from './pages/Dashboard'
-import PropertySkeleton from './utils/PropertySkeleton';
+import DashboardSkeleton from './utils/DashboardSkeleton';
 
 function App() {
   const { user, loading } = useAuth();
@@ -11,7 +11,7 @@ function App() {
   if (loading) {
     return (
       <div className="min-h-screen w-full flex flex-col p-4">
-        <PropertySkeleton />
+        <DashboardSkeleton />
       </div>
     )
   }
