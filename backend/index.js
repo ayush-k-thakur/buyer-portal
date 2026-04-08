@@ -15,7 +15,7 @@ const propertyRoutes = require("./modules/property/property.routes");
 const app = express();
 
 // Middleware setup
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "https://realestateportal.vercel.app/", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
