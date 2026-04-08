@@ -15,8 +15,10 @@ A simple fullstack property listing app with authentication, favourites, and bas
    ```
 3. Create a `.env` file with at least:
    ```env
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
+   PORT=5000
+   MONGO_URI = your_mongodb_connection_string
+   JWT_SECRET = your_jwt_secret
+   NODE_ENV = development
    ```
 4. Start the backend server
    ```bash
