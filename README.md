@@ -79,5 +79,7 @@ A simple fullstack property listing app with authentication, favourites, and bas
 ## Notes
 
 - The backend uses `cors` with credentials enabled so the frontend can send cookies.
+- For local development, make sure the `cors` origin in the backend matches your frontend URL (for example `http://localhost:5173`).
+- If you change the frontend port or host, update the backend CORS origin and any frontend API base URL settings accordingly.
 - The frontend fetches data from `http://localhost:5000` and expects the backend to set the auth cookie.
 - Make sure `JWT_SECRET` is set in the backend environment before starting the server.
