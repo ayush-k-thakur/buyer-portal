@@ -9,6 +9,7 @@ export function AuthProvider({ children }) {
 
     const fetchMe = async () => {
         try {
+            console.log(document.cookie);
             const res = await fetch(buildUrl("/users/me"), {
                 credentials: "include", // important for cookie
             });

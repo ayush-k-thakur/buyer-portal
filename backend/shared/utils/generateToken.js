@@ -9,12 +9,14 @@ const generateTokenAndSetCookie = (userId, role, res) => {
     );
 
     // Set the token in an HTTP-only cookie with appropriate security settings
-    // Cross-origin cookies require SameSite=None, and secure should be enabled in production only.
+    // Cross-origin cookies require SameSite=None and Secure in modern browsers.
+    const isProd = process.env.NODE_ENV === "production";
+
     res.cookie("token", token, {
-        maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day in ms
+        maxAge: 24 * 60 * 60 * 1000,
         httpOnly: true,
-        sameSite: "none",
-        secure: process.env.NODE_ENV === "production",
+        sameSite: isProd ? "none" : "lax",
+        secure: isProd,
     });
 };
 

@@ -4,16 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function Header({ user, activeTab, setActiveTab }) {
-  const { fetchMe } = useAuth();
+  const { fetchMe, logout } = useAuth();
   const navigate = useNavigate();
 
   const signOut = async () => {
     try {
-      await fetch(buildUrl("/users/logout"), {
-        method: "POST",
-        credentials: "include",
-      });
-      await fetchMe();
+      logout();
     } catch (error) {
       console.error("Logout failed", error);
     } finally {
