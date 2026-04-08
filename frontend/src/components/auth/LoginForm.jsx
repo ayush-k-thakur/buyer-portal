@@ -9,10 +9,10 @@ export default function LoginForm() {
 
     const [data, setData] = useState({ email: "", password: "" });
     const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const input =
         "w-full bg-white/60 backdrop-blur border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-emerald-500 transition";
-
 
     const handleChange = (e) =>
         setData((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -28,7 +28,8 @@ export default function LoginForm() {
         }
 
         try {
-            // --- Login request ---
+            setLoading(true);
+
             const res = await fetch(buildUrl("/users/login"), {
                 method: "POST",
                 headers: {
@@ -38,19 +39,19 @@ export default function LoginForm() {
                 body: JSON.stringify({ email, password }),
             });
 
-            const data = await res.json();
+            const result = await res.json();
 
             if (!res.ok) {
-                toast.error(data.message || "Login failed");
+                toast.error(result.message || "Login failed");
                 return;
             }
 
-            console.log("Login successful:", data);
             toast.success("Logged in successfully");
-            setUser(data.user);
+            setUser(result.user);
         } catch (err) {
-            console.error("Network or server error:", err);
             toast.error("Something went wrong. Try again.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -58,14 +59,14 @@ export default function LoginForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
             <div>
                 <label className="text-sm text-slate-600">Email Address</label>
-                <input
-                    name="email"
-                    type="email"
-                    className={input}
-                    placeholder="you@example.com"
-                    value={data.email}
-                    onChange={handleChange}
-                />
+            <input
+                name="email"
+                type="email"
+                className={input}
+                placeholder="you@example.com"
+                value={data.email}
+                onChange={handleChange}
+            />
             </div>
 
             <div className="relative">
@@ -87,8 +88,14 @@ export default function LoginForm() {
                 </button>
             </div>
 
-            <button className="w-full bg-emerald-600 text-white py-2.5 rounded-xl mt-2 cursor-pointer">
-                Sign In
+            <button
+                disabled={loading}
+                className={`w-full py-2.5 rounded-xl mt-2 text-white transition
+                ${loading
+                    ? "bg-emerald-400 cursor-not-allowed"
+                    : "bg-emerald-600 hover:bg-emerald-700 cursor-pointer"}`}
+            >
+                {loading ? "Logging in..." : "Log In"}
             </button>
         </form>
     );

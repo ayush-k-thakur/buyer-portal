@@ -14,12 +14,13 @@ export default function SignupForm() {
         confirmPassword: "",
         role: "buyer",
     });
+
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const input =
-    "w-full bg-white/60 backdrop-blur border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-emerald-500 transition";
-
+        "w-full bg-white/60 backdrop-blur border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-emerald-500 transition";
 
     const handleChange = (e) =>
         setData((p) => ({ ...p, [e.target.name]: e.target.value }));
@@ -39,7 +40,6 @@ export default function SignupForm() {
             return;
         }
 
-        // password strength 8 characters, 1 uppercase, 1 lowercase, 1 number
         if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/.test(password)) {
             toast.error(
                 "Password must be at least 8 characters and include uppercase, lowercase, and a number"
@@ -53,28 +53,30 @@ export default function SignupForm() {
         }
 
         try {
-            // --- Signup request ---
+            setLoading(true);
+
             const res = await fetch(buildUrl("/users/register"), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ name, email, password, confirmPassword, role }),
-                credentials: "include", // if backend sets cookie on signup
+                credentials: "include",
             });
 
-            const data = await res.json();
+            const result = await res.json();
 
             if (!res.ok) {
-                toast.error(data.message || "Signup failed");
+                toast.error(result.message || "Signup failed");
                 return;
             }
 
             toast.success("Account created successfully");
-            setUser(data.user); // store user in context
+            setUser(result.user);
         } catch (err) {
-            console.error("Network or server error:", err);
             toast.error("Something went wrong. Try again.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -171,8 +173,14 @@ export default function SignupForm() {
                 </div>
             </div>
 
-            <button className="w-full bg-emerald-600 text-white py-2.5 rounded-xl mt-2 cursor-pointer">
-                Create Account
+            <button
+                disabled={loading}
+                className={`w-full py-2.5 rounded-xl mt-2 text-white transition
+                ${loading
+                        ? "bg-emerald-400 cursor-not-allowed"
+                        : "bg-emerald-600 hover:bg-emerald-700 cursor-pointer"}`}
+            >
+                {loading ? "Creating account..." : "Create Account"}
             </button>
         </form>
     );
